@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <style>
+        /* 通用样式 */
+        body {
+            font-family: '黑体', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #012b51; /* 全屏背景色 */
+        }
+
+        /* 导航栏样式 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #003d74;
+            z-index: 1000;
+            height: 80px; /* 固定高度 */
+        }
+
+        .nav-content h1 {
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            margin-left: 35px;
+            line-height: 0.6; /* 垂直居中 */
+        }
+
+        /* 手机端导航栏样式 */
+        .mobile-nav {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(245, 245, 245, 0.85);
+            z-index: 1000;
+            padding: 20px;
+            box-shadow: none; /* 无阴影 */
+        }
+
+        .mobile-nav h1 {
+            color: #003d74;
+            font-size: 35px;
+            font-weight: bold;
+            margin: 0; /* 去除默认外边距 */
+            line-height: 1.2; /* 自适应高度 */
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px; /* 卡片间距 */
+        }
+
+        .card h2 {
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+            margin: 20px 0 20px 0; /* 标题与内容间距(并非，应为调整“关于我们”的位置) */
+        }
+
+        .card h3 {
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            margin: 0 0 10px 0; /* 标题与内容间距 */
+        }
+
+        .card p {
+            /* 两个大圆角矩形的正文部分 */
+            font-size: 18px;
+            color: black;
+            text-indent: 0em; /* 每段前空0格 */
+            line-height: 1.5; /* 内容行距 */
+            margin: 0;
+        }
+
+        /* 电脑端样式 */
+        .container {
+            margin-top: 180px; /* 卡片距离顶端180px */
+            margin-left: 36%; /* 卡片左侧距离页面左边36%，原为40%*/
+            margin-bottom: 150px; /* 下边距150px（留白）。目前字数不够不好看，快想些文案吧… */
+        }
+
+        .card {
+            opacity: 0; /* 初始隐藏 */
+            animation: fadeIn 0.3s ease-in-out forwards; /* 淡出效果。0.3s，已改回 */
+        }
+
+        .card:first-child {
+            margin-right: 140px; /* 第一张卡片右侧间距40px */
+            background-color: #f5f5f5; /* 第一张卡片背景色 */
+            line-height: 0.0; /* 调整至垂直居中 */
+            box-shadow: none; /* 无阴影 */
+            border: none; /* 无边框 */
+            width: fit-content; /* 卡片宽度 */
+            height: 40px; /* 卡片高度，辅助调整至垂直居中 */
+        }
+
+        .card:nth-child(2) {
+            margin-right: 30px; /* 第二张卡片右侧间距30px */
+            background-color: rgba(245, 245, 245, 0.85); /* 背景色透明度85% */
+            box-shadow: none; /* 无阴影 */
+            border: none; /* 无边框 */
+            width: 70%; /* 卡片宽度 */
+            animation-delay: 0.2s; /* 第二张卡片延迟0.2秒 */
+        }
+
+        .card:nth-child(3) {
+            margin-right: 30px; /* 第三张卡片右侧间距30px */
+            background-color: rgba(245, 245, 245, 0.85); /* 背景色透明度85% */
+            box-shadow: none; /* 无阴影 */
+            border: none; /* 无边框 */
+            width: 70%; /* 卡片宽度 */
+            animation-delay: 0.4s; /* 第三张卡片延迟0.4秒 */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 电脑端插入图片样式 */
+        .desktop-img {
+            position: fixed; /* 使用 fixed 定位 */
+            top: 80px; /* 与导航栏底部对齐 */
+            left: 0;
+            width: 30%; /* 图片宽度为页面宽度的30% */
+            height: 100vh; /* 图片高度为视口高度的100% */
+            object-fit: cover; /* 保持图片比例并覆盖整个区域 */
+            opacity: 0.2; /* 图片透明度20% */
+            z-index: 0; /* 确保图片在内容下方 */
+        }
+
+        /* 手机端图片在电脑端隐藏 */
+        .mobile-img {
+            display: none;
+        }
+
+        /* 电脑端目录功能 */
+        .sidebar {
+            position: fixed;
+            top: 80px; /* 导航栏高度 */
+            left: 0;
+            width: 30%;
+            height: calc(100vh - 80px); /* 去掉导航栏后的高度 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 左侧竖线 */
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 4%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 95%;
+            background: white;
+        }
+
+        /* 目录卡片 */
+        .directory-card {
+            position: absolute;
+            top: 50px;
+            left: 15%;
+            transform: translateX(-25%);/* 调整“目录”二字横向位置 */
+            background: transparent;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .directory-card h2 {
+            font-family: '方正黑粗', sans-serif;
+            font-size: 30px;
+            color: white;
+            margin: 0;
+            left:20px;
+        }
+
+        /* 目录下方横线 */
+        .directory-line {
+            position: absolute;
+            top: 100px; /* 50px (目录卡片) + 50px (间距) */
+            left: 13%;
+            width: 3%; /* 从3%到27% ,3%为原来的left值（并不）*/
+            height: 0.5px;
+            background: white;
+        }
+
+        /* 目录下标题卡片 */
+        .subdirectory-card {
+            position: absolute;
+            top: 120px; /* 100px (横线) + 10px (间距) + 10px (调整) */
+            left: 15%;
+            background: transparent;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .subdirectory-card h3 {
+            font-family: '方正黑粗', sans-serif;
+            font-size: 30px;
+            color: white;
+            margin: 0;
+            line-height: 2;
+        }
+
+        /* 底部长方形 */
+        .footer {
+            width: 100%;
+            background: #003d74; /* 深蓝色，与导航栏一致 */
+            color: white; /* 文字颜色 */
+            text-align: center; /* 文字横向居中 */
+            padding: 25px 2.5% 20px 2.5%; /* 长方形与文字上边距25px，下边距20px。左右不碰网站侧面*/
+            box-sizing: border-box;
+            position: relative;
+            bottom: 0; /* 紧贴网页最下沿 */
+            z-index: 1001;/* 在菜单图层之上 */
+        }
+
+        .footer-content {
+            max-width: 1200px; /* 限制内容宽度 */
+            margin: 0 auto; /* 居中显示 */
+        }
+
+        .footer p {
+            font-size: 18px; /* 字体大小 */
+            margin: 0; /* 去除默认外边距 */
+            line-height: 1.8; /* 行高 */
+        }
+
+        /* 底部长方形超链接样式 */
+        .footer-link {
+            color: white; /* 默认文字颜色 */
+            text-decoration: none; /* 去除下划线 */
+            transition: color 0.3s ease; /* 悬停时颜色渐变 */
+        }
+
+        .footer-link:hover {
+            color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
+        }
+
+
+        /* 手机端样式 */
+        @media (max-width: 550px) {
+            nav {
+                display: none; /* 隐藏电脑端导航栏 */
+            }
+
+            .mobile-nav {
+                display: block; /* 显示手机端导航栏 */
+                padding: 15px 20px; /* 调整内边距 */
+            }
+
+            .container {
+                margin-top: -450px; /* 卡片整体上移450px（备用：520px）目前仅电脑运行，看不出手机端实际近似效果 */
+                margin-left: 0;
+                width: 100%;
+                position: relative; /* 确保子元素的绝对定位相对于 .container */
+            }
+
+            .card {
+                margin-top: 60px; /* “关于我们”的小圆角矩形与第一张大圆角矩形卡片间距 */
+                margin-bottom: 75px; /* 第一、二张大圆角矩形卡片间距 */
+                opacity: 0; /* 初始隐藏 */
+                animation: fadeIn 0.3s ease-in-out forwards; /* 淡出效果。0.3s，已改回 */
+                text-align: center; /* 文字横向居中 */
+                background-color: rgba(255, 255, 255, 0.85); /* 背景白色，透明度85% */
+                margin-left: 10%; /* 实际并未居中。如何改进 */
+            }
+
+            .card h3 {
+                /* 两个大圆角矩形的标题，无要求 */
+            }
+
+            .card:first-child {
+                width: fit-content; /* 宽度自适应文字 */
+                margin: 0 auto; /* 居中 */
+                display: flex;
+                align-items: center; /* 文字纵向居中 */
+                justify-content: center;
+                height: 50px; /* 根据需要调整高度 */
+
+            }
+
+            .card:last-child {
+                margin-bottom: 100px; /* 最后一张卡片距离页面底端至少100px */
+            }
+
+            .card:nth-child(2) {
+                animation-delay: 0.2s; /* 第二张卡片延迟0.2秒。已改回 */
+            }
+
+            .card:nth-child(3) {
+                animation-delay: 0.4s; /* 第三张卡片延迟0.4秒.已改回 */
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* 手机端显示图片 */
+            .mobile-img {
+                position: relative;
+                top: 0px;
+                left: 0;
+                max-width: 100%;
+                height: auto;
+                display: block !important; /* 非常重要，在媒体查询中 需要让手机端样式具有更高的优先级。否则手机端无法显示图片 */
+                opacity: 0.2; /* 图片透明度20% */
+            }
+
+            /* 电脑端图片在手机端隐藏 */
+            .desktop-img {
+                display: none;
+            }
+
+            /* 隐藏电脑端目录功能 */
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 电脑端导航栏 -->
+    <nav>
+        <div class="nav-content">
+            <h1>SHU一站通（本科）</h1>
+        </div>
+    </nav>
+
+    <!-- 手机端导航栏 -->
+    <div class="mobile-nav">
+        <h1>SHU一站通（本科）</h1>
+    </div>
+
+    <!-- 电脑端插入图片 -->
+    <img src="https://i.ibb.co/G4JZqmZD/2thumbnail-IMG-1490.png" alt="image" class="desktop-img">
+
+    <!-- 手机端插入图片 -->
+    <img src="https://i.ibb.co/G4JZqmZD/2thumbnail-IMG-1490.png" alt="image" class="mobile-img">
+
+    <!-- 电脑端目录功能 -->
+    <div class="sidebar">
+        <!-- 目录卡片 -->
+        <div class="directory-card">
+            <h2>目录</h2>
+        </div>
+        <!-- 目录下方横线 -->
+        <div class="directory-line"></div>
+        <!-- 目录下标题卡片 -->
+        <div class="subdirectory-card">
+            <h3>关于我们<br>加入我们</h3>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="container">
+        <!-- 第一张卡片 -->
+        <div class="card">
+            <h2>关于我们</h2>
+        </div>
+
+        <!-- 第二张卡片 -->
+        <div class="card">
+            <h3>我们是谁</h3>
+            <p>我们是SHU一站通团队，致力于为本科生提供一站式服务。</p>
+        </div>
+
+        <!-- 第三张卡片 -->
+        <div class="card">
+            <h3>加入我们</h3>
+            <p>如果你对我们的工作感兴趣，欢迎加入我们！</p>
+        </div>
+    </div>
+
+    <!-- 底部长方形 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                <a href="https://gywm.com" class="footer-link">关于我们</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://bqsm.com" class="footer-link">版权声明</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://yjfk.com" class="footer-link">意见反馈</a>
+            </p>
+            <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
+            <p>沪ICP备12345678</p>
+        </div>
+    </footer>    
+</body>
+</html>
