@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分流排名</title>
+    <style>
+        /* 全局样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            font-family: 黑体, sans-serif;
+        }
+
+        /* 电脑端导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #003d74;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 35px;
+            font-weight: bold;
+            color: white;
+            margin-left: 35px;
+    
+        }
+
+        @media (min-width: 570px) {
+            /* 只有在电脑端，才隐藏手机端大矩形的文字 */
+            .mobile-title span {
+                display: none;
+            }
+        }
+
+        /* 返回键 */
+        .back-button {
+            position: fixed;
+            top: 75px; /* 距离导航栏下边缘15px */
+            left: 20px;
+            background: #003d74;
+            color: white;
+            font-size: 25px;
+            padding: 5px 10px 7px;/* 调整文字到垂直居中用，不知道为什么align-items没用 */
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            border-radius: 2px;
+            text-decoration: none; /* 去除下划线 */
+        }
+
+        /* 页标题 */
+        .page-title {
+            position: fixed;
+            top: 75px; /* 距离导航栏下边缘15px */
+            left: calc(20px + 105px + 30px); /* 距离返回键右侧边缘105px */
+            background: #f5f5f5;
+            opacity: 0.85;
+            color: black;
+            font-size: 30px;
+            padding: 5px 10px;
+            border: none;
+            z-index: 1000;
+            border-radius: 2px;
+            height: 35px;
+            display: flex;
+            align-items: center; /* 文字垂直居中 */
+        }
+
+        /* 图片一 */
+        .main-image {
+            display: block;
+            margin: 130px auto 20px; /* 上边距130px，居中 */
+            max-width: 100%;
+            height: auto;
+            max-height: calc(100vh - 200px); /* 确保图片高度自适应 */
+        }
+
+        /* 图片一下方注释 */
+        .image-caption {
+            text-align: center;
+            font-family: 黑体;
+            font-size: 15px;
+            color: #8794A8;
+            margin-top: 10px;
+        }
+
+        /* 说明文字文本框 */
+        .info-card {
+            width: 60%; /* 宽度为页面的60% */
+            margin: 50px auto 150px auto; /* 上边距50px，下边距150px（留白） */
+            background: rgba(245, 245, 245);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .info-card p {
+            font-family: 黑体;
+            font-size: 18px;
+            color: black;
+            line-height: 1.6;
+            margin: 0;
+            text-indent: 2em; /* 每段前面空两格 */
+        }
+
+        /* 底部长方形 */
+        .footer {
+            width: 100%;
+            background: #003d74; /* 深蓝色，与导航栏一致 */
+            color: white; /* 文字颜色 */
+            text-align: center; /* 文字横向居中 */
+            padding: 25px 2.5% 20px 2.5%; /* 长方形与文字上边距25px，下边距20px。左右不碰网站侧面*/
+            box-sizing: border-box;
+            position: relative;
+            bottom: 0; /* 紧贴网页最下沿 */
+            z-index: 1001;/* 在菜单图层之上 */
+        }
+
+        .footer-content {
+            max-width: 1200px; /* 限制内容宽度。为什么报错？ */
+            margin: 0 auto; /* 居中显示 */
+        }
+
+        .footer p {
+            font-size: 18px; /* 字体大小 */
+            margin: 0; /* 去除默认外边距 */
+            line-height: 1.8; /* 行高 */
+        }
+
+        /* 底部长方形超链接样式 */
+        .footer-link {
+            color: white; /* 默认文字颜色 */
+            text-decoration: none; /* 去除下划线 */
+            transition: color 0.3s ease; /* 悬停时颜色渐变 */
+        }
+
+        .footer-link:hover {
+            color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
+        }
+
+
+        /* 手机端样式 */
+        @media (max-width: 570px) {/* 原为768px */
+            /* 隐藏电脑端导航栏 */
+            .navbar {
+                display: none;
+            }
+
+            /* 大矩形卡片 */
+            .mobile-title {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(245, 245, 245, 0.85);
+                padding: 10px 0;
+                z-index: 1000;
+                text-align: left;
+                padding-left: 35px;
+            }
+
+            .mobile-title span {
+                font-family: 方正黑粗, sans-serif;
+                font-size: 35px;
+                color: #003d74;
+                font-weight: bold;
+            }
+
+            /* 返回键 */
+            .back-button {
+                top: 70px; /* 距离大矩形卡片下边缘20px */
+                left: 20px;
+                text-align: center;
+                font-size: 20px;
+                padding: 5px 10px 5px;
+                text-decoration: none; /* 去除下划线 */
+            }
+            
+            /* 页标题 */
+            .page-title {
+                top: 65.5px; /* 距离大矩形卡片下边缘15.5px */
+                left: 0; /* 距离返回键右侧边缘105px */
+                width: 100%;
+                background:rgba(245, 245, 245, 0.85);
+                height:34px; /* 减少6px高度 */
+                display: flex;
+                padding-left: 155px; /* 距离返回键右侧边缘105px */
+                z-index: 999;/* 保证在返回键之下 */
+            }
+
+            
+
+            /* 图片一 */
+            .main-image {
+                max-width: 90%; /* 图片宽度占屏幕小于等于90% */
+                max-height: calc(100vh - 200px); /* 确保图片高度自适应 */
+            }
+
+            /* 说明文字文本框 */
+            .info-card {
+                width: 90%; /* 手机端宽度更大 */
+                margin: 50px auto 100px auto; /* 上边距50px，下边距100px（留白），横向居中*/
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 电脑端导航栏 -->
+    <div class="navbar">
+        <div class="title">SHU一站通（本科）</div>
+    </div>
+
+    <!-- 返回键 -->
+    <a class="back-button" href="https://nora-001.github.io/shuydtug/">返回主页</a>
+
+    <!-- 页标题 -->
+    <div class="page-title">分流排名一览表</div>
+
+    <!-- 手机端大矩形卡片 -->
+    <div class="mobile-title">
+        <span>SHU一站通（本科）</span>
+    </div>
+
+    <!-- 图片一 -->
+    <img src="https://i.ibb.co/tGFM4NJ/1112.png" alt="分流排名" class="main-image"/></a>
+
+    <!-- 图片一下方注释 -->
+    <div class="image-caption">▲近年大类分流各专业最低录取排名一览表</div>
+
+    <!-- 说明文字文本框 -->
+    <div class="info-card">
+        <p></p> <!-- 这里可以添加说明文字 -->
+    </div>
+
+    <!-- 底部长方形 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                <a href="https://nora-001.github.io/shuydtug/subpage-footer-aboutus/" class="footer-link">关于我们</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://nora-001.github.io/shuydtug/subpage-footer-copyright/" class="footer-link">版权声明</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://nora001.pythonanywhere.com/" class="footer-link">意见反馈</a>
+            </p>
+            <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
+            <p>沪ICP备12345678</p>
+        </div>
+    </footer>
+</body>
+</html>
