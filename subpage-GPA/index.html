@@ -33,11 +33,6 @@
             margin-left: 35px;
         }
 
-        /* 隐藏手机端大矩形的文字 */
-        .mobile-title span {
-            display: none;
-        }
-
         /* 返回键 */
         .back-button {
             position: fixed;
@@ -46,7 +41,7 @@
             background: #003d74;
             color: white;
             font-size: 25px;
-            padding: 5px 10px 7px;/* 调整文字到垂直居中用，不知道为什么align-items没用 */
+            padding: 5px 10px;
             border: none;
             cursor: pointer;
             z-index: 1000;
@@ -175,10 +170,9 @@
             .back-button {
                 top: 70px; /* 距离大矩形卡片下边缘20px */
                 left: 20px;
+                height:35px;
                 text-align: center;
-                text-decoration: none; /* 去除下划线 */
                 font-size: 20px;
-                padding: 5px 10px 5px;
             }
             
             /* 页标题 */
@@ -214,7 +208,7 @@
     </div>
 
     <!-- 返回键 -->
-    <a class="back-button" href="https://nora-001.github.io/shuydtug/">返回主页</a>
+    <button class="back-button">返回主页</button>
 
     <!-- 页标题 -->
     <div class="page-title">绩点计算</div>
@@ -232,7 +226,7 @@
 
     <!-- 说明文字文本框 -->
     <div class="info-card">
-        <p></p> <!-- 这里可以添加说明文字 -->
+        <p>绩点计算是学生学业成绩的重要评估方式。根据不同的评分制，绩点的计算方法也有所不同。五等十一级评分制将成绩分为A、A-、B+、B、B-、C+、C、C-、D+、D、F共11个等级，每个等级对应不同的绩点。例如，A对应4.0，A-对应3.7，B+对应3.3，以此类推。百分制评分则是将百分制成绩转换为绩点，通常90-100分对应4.0，85-89分对应3.7，80-84分对应3.3，以此类推。通过科学的绩点计算，学生可以更好地了解自己的学业表现。</p>
     </div>
 
     <!-- 底部长方形 -->
