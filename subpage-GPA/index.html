@@ -187,13 +187,14 @@
             
             /* 页标题 */
             .page-title {
-                top: 65.5px; /* 距离大矩形卡片下边缘15.5px */
+                top: 0px; /* 原为65.5px，意为距离大矩形卡片下边缘15.5px */
                 left: 0; /* 距离返回键右侧边缘105px */
                 width: 100%;
                 background:rgba(245, 245, 245, 0.85);
-                height:34px; /* 减少6px高度 */
+                height:auto; /* 原为34px,减少6px高度 */
                 display: flex;
                 padding-left: 155px; /* 距离返回键右侧边缘105px */
+                padding-top: 71px;
                 z-index: 999;/* 保证在返回键之下 */
             }
 
@@ -219,7 +220,7 @@
 
     <!-- 返回键 -->
     <a class="back-button" href="https://nora-001.github.io/shuydtug/">返回主页</a>
-    <!-- 未加超链接前为<button class="back-button">返回主页</button> -->
+    <!-- 未加超链接前，为<button class="back-button">返回主页</button> -->
 
     <!-- 页标题 -->
     <div class="page-title">绩点计算</div>
