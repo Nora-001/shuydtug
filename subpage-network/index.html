@@ -73,13 +73,56 @@
             align-items: center; /* 文字垂直居中 */
         }
 
-        /* 图片 */
+        /* 图片容器 */
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin: 130px auto 20px;
+            max-width: 100%;
+        }
+
+        /* 加载动画 */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(135, 148, 168, 0.2);
+            border-top-color: #8794A8;
+            border-radius: 50%;
+            animation: spin 1s ease-in-out infinite;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        /* 图片基础样式 */
         .main-image {
-            display: block;
-            margin: 130px auto 20px; /* 上边距130px，居中 */
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.6s;
+            z-index: 2;
             max-width: 100%;
             height: auto;
-            max-height: calc(100vh + 200px); /* 确保图片高度自适应 */
+            display: block;
+            margin: 0 auto;
+            max-height: calc(100vh + 200px);
+        }
+
+        /* 加载完成状态 */
+        .loaded .main-image {
+            opacity: 1;
+        }
+
+        .loaded .loader {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* 图片下方注释 */
@@ -89,6 +132,8 @@
             font-size: 15px;
             color: #8794A8;
             margin-top: 10px;
+            padding-left: 5%;
+            padding-right: 5%;
         }
 
         /* 说明文字文本框 */
@@ -145,7 +190,6 @@
             color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
         }
 
-
         /* 手机端样式 */
         @media (max-width: 570px) {
             /* 隐藏电脑端导航栏 */
@@ -195,10 +239,15 @@
                 z-index: 999;/* 保证在返回键之下 */
             }
 
+            /* 图片容器 */
+            .image-wrapper {
+                max-width: 90%;
+                margin: 100px auto 20px;
+            }
+
             /* 图片 */
             .main-image {
-                max-width: 90%; /* 图片宽度占屏幕小于等于90% */
-                max-height: calc(100vh - 200px); /* 确保图片高度自适应 */
+                max-height: calc(100vh - 200px);
             }
 
             /* 说明文字文本框 */
@@ -219,7 +268,7 @@
     <a class="back-button" href="https://nora-001.github.io/shuydtug/">返回主页</a>
 
     <!-- 页标题 -->
-    <div class="page-title">校园网使用说明</div>
+    <div class="page-title">校园网</div>
 
     <!-- 手机端大矩形卡片 -->
     <div class="mobile-title">
@@ -227,7 +276,13 @@
     </div>
 
     <!-- 图片 -->
-    <img src="https://i.ibb.co/Dgt8vgYj/image.png" alt="校园网使用说明" class="main-image"/></a>
+    <div class="image-wrapper">
+        <div class="loader"></div>
+        <img src="https://i.ibb.co/Dgt8vgYj/image.png" 
+             alt="校园网使用说明" 
+             class="main-image"
+             onload="this.parentElement.classList.add('loaded')">
+    </div>
 
     <!-- 图片下方注释 -->
     <div class="image-caption">▲校园网使用说明</div>
@@ -245,9 +300,19 @@
                 <a href="https://nora-001.github.io/shuydtug/subpage-footer-copyright/" class="footer-link">版权声明</a> &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a href="https://nora001.pythonanywhere.com/" class="footer-link">意见反馈</a>
            </p>
-            <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
+            <p>本站由"SHU一站通开发团队"开发，版权所有 © 上海大学及相关内容提供者</p>
             <p>沪ICP备12345678</p>
         </div>
-    </footer>    
+    </footer>
+
+    <script>
+        // 图片加载错误处理
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                const loader = this.parentElement.querySelector('.loader');
+                if(loader) loader.remove();
+            }
+        });
+    </script>
 </body>
 </html>
