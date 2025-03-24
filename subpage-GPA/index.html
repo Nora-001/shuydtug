@@ -31,6 +31,7 @@
             font-weight: bold;
             color: white;
             margin-left: 35px;
+            align-items: center;
         }
 
         @media (min-width: 570px) {
@@ -161,12 +162,12 @@
                 left: 0;
                 width: 100%;
                 background: rgba(245, 245, 245, 0.85);
-                align-items: center;
-                padding: 10px 0 10px; 
                 z-index: 999;
                 text-align: left;
                 padding-left: 35px;
-                height:45px;/* 我的padding是10px,照理应该height是55px才居中啊…… */
+                display: flex;
+                align-items: center;
+                height:55px!important; /* 强制覆盖可能存在的冲突样式 *//* 我的padding是10px,照理应该height是55px才居中啊…… */
             }
 
             .mobile-title span {
@@ -175,6 +176,10 @@
                 color: #003d74;
                 font-weight: bold;
                 z-index: 1001; /* 没用 */
+                align-items: center;
+                line-height: 1 !important; /* 清除继承的行高 */
+                display: inline-block; /* 使vertical-align生效 */
+                vertical-align: middle;
             }
 
             /* 返回键 */
