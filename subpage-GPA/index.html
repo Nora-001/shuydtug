@@ -147,6 +147,49 @@
             color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
         }
 
+        /* 新增图片加载动画样式 */
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin:  0px auto 20px;
+            max-width: 100%;
+        }
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(135, 148, 168, 0.2);
+            border-top-color: #8794A8;
+            border-radius: 50%;
+            animation: spin 1s ease-in-out infinite;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .main-image {
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.6s;
+            z-index: 2;
+        }
+
+        .loaded .main-image {
+            opacity: 1;
+        }
+
+        .loaded .loader {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
 
         /* 手机端样式 */
         @media (max-width: 570px) {
@@ -238,7 +281,14 @@
     </div>
 
     <!-- 图片 -->
-    <img src="https://i.ibb.co/gbk8qR2d/image.png" alt="绩点计算" class="main-image"/></a>
+    <div class="image-wrapper">
+        <div class="loader"></div>
+        <img src="https://i.ibb.co/gbk8qR2d/image.png" 
+             alt="绩点计算" 
+             class="main-image"
+             onload="this.parentElement.classList.add('loaded')">
+    </div>
+    <!--原为<img src="https://i.ibb.co/gbk8qR2d/image.png" alt="绩点计算" class="main-image"/></a>-->
 
     <!-- 图片下方注释 -->
     <div class="image-caption">▲三种评分制下的绩点计算</div>
@@ -259,6 +309,14 @@
             <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
             <p>沪ICP备12345678</p>
         </div>
-    </footer>    
+    </footer> 
+    <script>
+        // 新增图片加载错误处理
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                this.parentElement.querySelector('.loader').remove();
+            }
+        });
+    </script>
 </body>
 </html>
