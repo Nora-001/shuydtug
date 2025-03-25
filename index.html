@@ -121,6 +121,7 @@
             color: white;
             text-decoration: none;
             font-size: 18px;
+            margin-left: -5px;
         }
 
         /* 卡片容器 */
@@ -320,16 +321,15 @@
             .menu ul li a br,
             .menu ul li a .space {
                 display: none;
-            }
+            } 
 
             /* 屏幕宽度小于 480px 时显示换行符和空格(原为280，但是目前的480好像也不是实际的480) */
             @media (max-width: 480px) {
                 .menu ul li a br {
                     display: inline; /* 显示换行符 */
                 }
-                .menu ul li a .space {
-                    display: inline; /* 显示空格 */
-                }
+                /* .menu ul li a .space {
+                    display: inline; }/* 显示空格 */
             }
         }
     </style>
@@ -366,14 +366,14 @@
             <li><br></li>
             <li><br></li>
             <li><a href="#教务系统">• 教务系统</a></li>
-            <li><a href="#选课与课程">• 选课<br><span class="space">&nbsp;&nbsp;</span>与课程</a></li>
-            <li><a href="#考试与成绩">• 考试<br><span class="space">&nbsp;&nbsp;</span>与成绩</a></li>
+            <li><a href="#选课与课程">• 选课与课程</a></li>
+            <li><a href="#考试与成绩">• 考试与成绩</a></li>
             <li><a href="#学习空间">• 学习空间</a></li>
             <li><a href="#学术管理">• 学术管理</a></li>
             <li><a href="#资源">• 资源</a></li>
             <li><a href="#账户管理">• 账户管理</a></li>
             <li><a href="#校园服务">• 校园服务</a></li>
-            <li><a href="#校园组织联系信息">• 校园组织<br><span class="space">&nbsp;&nbsp;</span>联系信息</a></li>
+            <li><a href="#校园组织联系信息">• 校园组织<br>联系信息</a></li>
         </ul>
     </div>
 
