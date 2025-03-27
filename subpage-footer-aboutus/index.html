@@ -103,7 +103,7 @@
         }
 
         .card:first-child {
-            margin-right: 140px; /* 第一张卡片右侧间距40px */
+            margin-right: 140px; /* 第一张卡片右侧间距140px */
             background-color: #f5f5f5; /* 第一张卡片背景色 */
             line-height: 0.0; /* 调整至垂直居中 */
             box-shadow: none; /* 无阴影 */
@@ -162,7 +162,8 @@
         .sidebar {
             position: fixed;
             top: 80px; /* 导航栏高度 */
-            bottom:65px;/* 新增 */
+            bottom:0;
+            /* bottom:65px;新增 */
             left: 0;
             width: 30%;
             height: auto; /* 原为calc(100vh - 80px)，是去掉导航栏后的高度 */
@@ -283,22 +284,21 @@
 
             .container {
                 margin-top: 100px; /* 原container无padding设置，为-450px，意为卡片整体上移450px（备用：520px）目前仅电脑运行，看不出手机端实际近似效果 */
-                margin-left: 0;
+                /*记得加上margin-left: 0;*/
                 width: 100%;
-                position: relative; /* 确保子元素的绝对定位相对于 .container */
-                padding: 0 5%; /* 新增 */
+                position:absolute; /* 原为relative，确保子元素的绝对定位相对于 .container */
+                margin-left:0 !important;
             }
 
             .card {
                 margin-top: 60px !important; /* “关于我们”的小圆角矩形与第一张大圆角矩形卡片间距 */
                 margin-bottom: 75px !important; /* 第一、二张大圆角矩形卡片间距 */
-                margin-top: auto;
                 opacity: 0; /* 初始隐藏 */
                 animation: fadeIn 0.3s ease-in-out forwards; /* 淡出效果。0.3s，已改回 */
                 text-align: center; /* 文字横向居中 */
                 background-color: rgba(255, 255, 255, 0.85); /* 背景白色，透明度85% */
-                margin-left: 0 !important; /* 覆盖原有10%设置 */
-                width: 90% !important; /* 新增 */
+                margin-left:auto !important; /* 居中 */
+                margin-right:auto !important; /* 居中 */
             }
 
             .card h3 {
@@ -306,17 +306,17 @@
             }
 
             .card:first-child {
-                width: fit-content; /* 宽度自适应文字 */
-                margin: 0 auto; /* 居中 */
+                width: fit-content !important; /* 原为fit-content，宽度自适应文字，似乎没用 */
                 display: flex;
                 align-items: center; /* 文字纵向居中 */
                 justify-content: center;
                 height: 50px; /* 根据需要调整高度 */
-
+                background-color: rgb(255, 255, 255);
+                position: relative;
             }
 
             .card:last-child {
-                margin-bottom: 100px; /* 最后一张卡片距离页面底端至少100px */
+                margin-bottom: 100px; /* 似乎没用。最后一张卡片距离页面底端至少100px */
             }
 
             .card:nth-child(2) {
@@ -357,6 +357,10 @@
             /* 隐藏电脑端目录功能 */
             .sidebar {
                 display: none;
+            }
+
+            .footer {
+                margin-top: 150px;
             }
         }
     </style>
