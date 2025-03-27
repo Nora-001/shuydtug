@@ -12,7 +12,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #f5f5f5; /* 全屏背景色 */
+            background-color: #f5f5f5;
+            display: flex;          /* 新增 */
+            flex-direction: column; /* 新增 */
+            min-height: 100vh;     /* 新增 */
+        }
+        
+        .main-content {
+            flex: 1;
+            position: relative;
         }
 
         /* 电脑端背景 */
@@ -28,7 +36,7 @@
             top: 0;
             width: 100%;
             background-color: #003d74;
-            z-index: 1000;
+            z-index: 1001;
             height: 80px; /* 固定高度 */
         }
 
@@ -94,9 +102,11 @@
         /* 电脑端样式 */
         @media (min-width: 570px) {
             .container {
-                margin-top: 180px; /* 卡片距离顶端180px */
-                margin-left: 36%; /* 卡片左侧距离页面左边36%，原为40%*/
-                margin-bottom: 200px; /* 下边距200px（留白）。 */
+                margin-top: 180px;
+                margin-left: 36%;
+                /* 移除 margin-bottom: 200px */
+                padding-bottom: 150px; /* （容器内）最下方页面留白，让footer足够往下显示出网站主页（并非贴底）。新增 */
+                /* 调整最下方留白在这里！ */
             }
 
             .card {
@@ -168,6 +178,7 @@
             width: 1px;
             height: 95%;
             background: black;
+            z-index:900;
         }
 
         /* 目录卡片 */
@@ -253,6 +264,59 @@
             color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
         }
 
+        /* 竖线动画 - 从上往下带弹性 */
+        @keyframes verticalLineDrop {
+            0% {
+                height: 0;
+                top: 5%; /* 从上方5%位置开始 */
+                transform: translateY(0);
+                opacity: 0;
+            }
+            70% {
+                height: calc(100% - 20px); /* 超过目标高度 */
+                top: 10%;
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                height: 90%;/* 回弹收缩,92%的话就和原来的很像了 */
+                top: 5%; /* 4%的话就和原来的很像了 */
+                transform: translateY(0);
+            }
+        }
+
+        /* 横线动画 - 刹车滑行效果 */
+        @keyframes horizontalLineSlide {
+            0% {
+                width: 0;
+                left: -15%;
+                opacity: 0;
+                transform: scaleX(0.5);
+            }
+            60% {
+                width: 3%; /* 拉伸到超过目标 */
+                left: 13%;
+                transform: scaleX(1); /* 横向拉伸 */
+            }
+            75% {
+                width: 3%;
+                left: 13%; /* 超过目标位置 */
+                transform: scaleX(1);
+            }
+            100% {
+                width: 3%;
+                left: 13%; /* 回弹 */
+                transform: scaleX(1);
+            }
+        }
+
+        .sidebar::before {
+        animation: verticalLineDrop 1s cubic-bezier(0.7, -0.3, 0.2, 1.4) forwards;
+        }
+
+        .directory-line {
+        animation: horizontalLineSlide 0.8s cubic-bezier(0.6, -0.2, 0.3, 1.3) 0.2s forwards;
+        }
 
         /* 手机端样式 */
         @media (max-width: 570px) {
@@ -266,9 +330,9 @@
             }
 
             .container {
-                margin-top: 100px; /* 调整卡片整体位置 */
-                position: relative; /* 确保子元素的绝对定位相对于 .container */
-                margin-bottom: 200px; /* 下边距200px（留白）。有用吗*/
+                margin-top: 100px;
+                margin-bottom: 0; /* 移除200px */
+                padding-bottom: 50px; /* 新增 */
             }
 
             .card {
@@ -337,39 +401,43 @@
         <h1>SHU一站通（本科）</h1>
     </div>
 
-    <!-- 电脑端目录功能 -->
-    <div class="sidebar">
-        <!-- 目录卡片 -->
-        <div class="directory-card">
-            <h2>目录</h2>
+    <!-- 新增的主内容容器 -->
+    <div class="main-content">
+        <!-- 电脑端目录功能 -->
+        <div class="sidebar">
+            <!-- 目录卡片 -->
+            <div class="directory-card">
+                <h2>目录</h2>
+            </div>
+            <!-- 目录下方横线 -->
+            <div class="directory-line"></div>
+            <!-- 目录下标题卡片 -->
+            <div class="subdirectory-card">
+                <h3>开源项目<br>数据来源</h3>
+            </div>
         </div>
-        <!-- 目录下方横线 -->
-        <div class="directory-line"></div>
-        <!-- 目录下标题卡片 -->
-        <div class="subdirectory-card">
-            <h3>开源项目<br>数据来源</h3>
+
+        <!-- 页面内容容器 -->
+        <div class="container">
+            <!-- 第一张卡片 -->
+            <div class="card">
+                <h2>版权声明</h2>
+            </div>
+
+            <!-- 第二张卡片 -->
+            <div class="card">
+                <h3>开源项目</h3>
+                <p>暂无。</p>
+            </div>
+
+            <!-- 第三张卡片 -->
+            <div class="card">
+                <h3>数据来源</h3>
+                <p>“分流排名一览表”、“校园网使用说明”、“运动场地”相关内容来自学盟社，“官方校园地图”来自上海大学招生与毕业生就业工作办公室，“学生会校园地图”来自上海大学学生会，“绩点计算”相关内容来自上大生存手册，“校车”相关内容来自原上大表白墙墙公众号。其余链接均为上海大学官方网站。</p>
+            </div>
         </div>
     </div>
 
-    <!-- 页面内容 -->
-    <div class="container">
-        <!-- 第一张卡片 -->
-        <div class="card">
-            <h2>版权声明</h2>
-        </div>
-
-        <!-- 第二张卡片 -->
-        <div class="card">
-            <h3>开源项目</h3>
-            <p>暂无。</p>
-        </div>
-
-        <!-- 第三张卡片 -->
-        <div class="card">
-            <h3>数据来源</h3>
-            <p>“分流排名一览表”、“校园网使用说明”、“运动场地”相关内容来自学盟社，“官方校园地图”来自上海大学招生与毕业生就业工作办公室，“学生会校园地图”来自上海大学学生会，“绩点计算”相关内容来自上大生存手册，“校车”相关内容来自原上大表白墙墙公众号。其余链接均为上海大学官方网站。</p>
-        </div>
-    </div>
     <!-- 底部长方形 -->
     <footer class="footer">
         <div class="footer-content">
@@ -378,9 +446,9 @@
                 <a href="https://nora-001.github.io/shuydtug/subpage-footer-copyright/" class="footer-link">版权声明</a> &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a href="https://nora001.pythonanywhere.com/" class="footer-link">意见反馈</a>
             </p>
-            <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
+            <p>本站由"SHU一站通开发团队"开发，版权所有 © 上海大学及相关内容提供者</p>
             <p>沪ICP备12345678</p>
         </div>
-    </footer>    
+    </footer>
 </body>
 </html>
