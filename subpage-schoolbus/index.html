@@ -213,6 +213,7 @@
                 display: none;
             }
 
+
             /* 大矩形卡片 */
             .mobile-title {
                 position: fixed;
@@ -220,10 +221,12 @@
                 left: 0;
                 width: 100%;
                 background: rgba(245, 245, 245, 0.85);
-                padding: 10px 0;
-                z-index: 1000;
+                z-index: 999;
                 text-align: left;
                 padding-left: 35px;
+                display: flex;
+                align-items: center;
+                height:55px!important; /* 强制覆盖可能存在的冲突样式 *//* padding是10px,照理应该height是55px才居中啊…… */
             }
 
             .mobile-title span {
@@ -231,31 +234,34 @@
                 font-size: 35px;
                 color: #003d74;
                 font-weight: bold;
+                z-index: 1001; /* 没用 */
+                align-items: center;
+                line-height: 1 !important; /* 清除继承的行高 */
+                display: inline-block; /* 使vertical-align生效 */
+                vertical-align: middle;
             }
 
             /* 返回键 */
             .back-button {
-                top: 70px; /* 距离大矩形卡片下边缘20px */
+                top: 60px; /* 距离大矩形卡片下边缘10px（可能已经不是了）,原为20px */
                 left: 20px;
                 text-align: center;
                 font-size: 20px;
                 padding: 5px 10px 5px;
                 text-decoration: none; /* 去除下划线 */
             }
-
+            
             /* 页标题 */
             .page-title {
-                top: 65.5px; /* 距离大矩形卡片下边缘15.5px */
-                left: 0; /* 左侧对齐 */
-                width: 100%; /* 宽度100% */
-                background: rgba(245, 245, 245, 0.85);
-                padding: 5px 10px 5px calc(20px + 105px + 30px); /* 左侧内边距保持原有距离 */
-                border: none;
-                z-index: 999; /* 置于返回键下方 */
-                border-radius: 2px;
-                height: 34px;
+                top: 0px; /* 原为65.5px，意为距离大矩形卡片下边缘15.5px */
+                left: 0; /* 距离返回键右侧边缘105px */
+                width: 100%;
+                background:rgba(245, 245, 245, 0.85);
+                height:auto; /* 原为34px,减少6px高度 */
                 display: flex;
-                align-items: center; /* 文字垂直居中 */
+                padding-left: 155px; /* 距离返回键右侧边缘105px */
+                padding-top: 61px;
+                z-index: 999;/* 保证在返回键之下 */
             }
 
             /* 图片 */
@@ -328,8 +334,8 @@
     <!-- 说明文字文本框 -->
     <div class="info-card">
         <p>不预约校车和预约校车的区别：</p>
-        <p>1、班次不一样：不预约的校车以上面“平平淡淡才是真”路线中的班次表为准预约的校车班次是通过查看微信或企业微信上“预约校车”中显示的时间为准的。</p>
-        <p>2、上下车地点不一样：不预约的校车在AJ楼处，有一处停车场和车亭那边；预约的校车在美术学院门口广场。</p>
+        <p>1、班次不一样：不预约的校车以上面的班次表为准，预约的校车班次以企业微信上“预约校车”中显示的时间为准。</p>
+        <p>2、上下车地点不一样：详见上文不同校区乘车点图示。</p>
     </div>
     
     <!-- 底部长方形 -->
