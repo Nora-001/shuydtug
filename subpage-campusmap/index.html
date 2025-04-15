@@ -183,12 +183,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height:auto;
                 background: rgba(245, 245, 245, 0.85);
-                padding: 10px 0;
-                z-index: 1000;
+                z-index: 999;
                 text-align: left;
                 padding-left: 35px;
+                display: flex;
+                align-items: center;
+                height:55px!important; /* 强制覆盖可能存在的冲突样式 *//* padding是10px,照理应该height是55px才居中啊…… */
             }
 
             .mobile-title span {
@@ -196,11 +197,16 @@
                 font-size: 35px;
                 color: #003d74;
                 font-weight: bold;
+                z-index: 1001; /* 没用 */
+                align-items: center;
+                line-height: 1 !important; /* 清除继承的行高 */
+                display: inline-block; /* 使vertical-align生效 */
+                vertical-align: middle;
             }
 
             /* 返回键 */
             .back-button {
-                top: 70px; /* 距离大矩形卡片下边缘20px */
+                top: 60px; /* 距离大矩形卡片下边缘10px（可能已经不是了）,原为20px */
                 left: 20px;
                 text-align: center;
                 font-size: 20px;
@@ -210,18 +216,15 @@
             
             /* 页标题 */
             .page-title {
-                position: fixed;
-                top: 65.5px; /* 距离大矩形卡片下边缘15.5px */
-                left: 0; /* 左侧对齐 */
-                width: 100%; /* 宽度100% */
-                background: rgba(245, 245, 245, 0.85);
-                padding: 5px 10px 5px calc(20px + 105px + 30px); /* 左侧内边距保持原有距离 */
-                border: none;
-                z-index: 999; /* 置于返回键下方 */
-                border-radius: 2px;
-                height: 34px;
+                top: 0px; /* 原为65.5px，意为距离大矩形卡片下边缘15.5px */
+                left: 0; /* 距离返回键右侧边缘105px */
+                width: 100%;
+                background:rgba(245, 245, 245, 0.85);
+                height:auto; /* 原为34px,减少6px高度 */
                 display: flex;
-                align-items: center; /* 文字垂直居中 */
+                padding-left: 155px; /* 距离返回键右侧边缘105px */
+                padding-top: 61px;
+                z-index: 999;/* 保证在返回键之下 */
             }
 
             /* 图片一 */
