@@ -75,11 +75,19 @@
         /* 图片 */
         .main-image {
             display: block;
-            margin: 130px auto 20px; /* 上边距130px，居中 */
+            margin: 130px auto 20px;
             max-width: 90%;
             height: auto;
-            max-height: calc(100vh + 200px); /* 确保图片高度自适应 */
+            max-height: calc(100dvh + 200px); /* 使用动态视口单位 */
+            object-fit: contain; /* 新增 */
+            position: relative;
+            z-index: 500; /* 确保在导航栏和页脚之间？真的吗 */
+            -webkit-transform: translateZ(0); /* 强制GPU加速 */
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            image-rendering: -webkit-optimize-contrast;
         }
+
 
         /* 图片下方注释 */
         .image-caption {
@@ -204,7 +212,8 @@
             /* 图片 */
             .main-image {
                 max-width: 90%;
-                max-height: calc(100vh - 200px);
+                margin-top: calc(55px + 61px + 20px);
+                max-height: calc(100dvh - 240px); /* 使用动态视口单位 */
             }
 
             /* 说明文字文本框 */
@@ -233,7 +242,7 @@
     </div>
 
     <!-- 图片 -->
-    <img src="https://i.ibb.co/Dgt8vgYj/image.png" alt="校园网使用说明" class="main-image"/>
+    <img src="https://i.ibb.co/Dgt8vgYj/image.png" alt="校园网使用说明" class="main-image" decoding="async" loading="eager"/>
 
     <!-- 图片下方注释 -->
     <div class="image-caption">▲校园网使用说明</div>
