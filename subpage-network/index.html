@@ -31,6 +31,7 @@
             font-weight: bold;
             color: white;
             margin-left: 35px;
+            align-items: center;
         }
 
         @media (min-width: 570px) {
@@ -47,8 +48,8 @@
             left: 20px;
             background: #003d74;
             color: white;
-            font-size: 25px;
-            padding: 5px 10px 7px;/* 调整文字到垂直居中用，不知道为什么align-items没用 */
+            font-size: 26px;/*原为25px */
+            padding: 6px 10px 6px;/* 调整文字到垂直居中用，不知道为什么align-items没用 */
             border: none;
             cursor: pointer;
             z-index: 1000;
@@ -64,24 +65,24 @@
             background: #f5f5f5;
             color: black;
             font-size: 30px;
-            padding: 5px 10px;
+            padding: 4px 10px 4px;
             border: none;
             z-index: 1000;
             border-radius: 2px;
-            height:35px; /* 减少5px高度 */
             display: flex;
             align-items: center; /* 文字垂直居中 */
         }
 
-        /* 图片容器 */
+        /* 新增图片加载动画样式 *//* 11111start */
         .image-wrapper {
+            position: relative;
+            display: inline-block;
             width: 100%;
             margin: 130px auto 20px;
-            text-align: center;
             max-width: 100%;
+            text-align: center;/*必要，可以使图片居中*/
         }
 
-        /* 加载动画 */
         .loader {
             position: absolute;
             top: 50%;
@@ -97,17 +98,16 @@
             z-index: 1;
         }
 
-        /* 图片基础样式 *//* 校园网图片样式有变，需要在下面的图片容器手动添加130px的距离页面上方margin。就是说图片设置被拆开了。 */
         .main-image {
+            position: relative;
             opacity: 0;
             transition: opacity 0.6s;
             z-index: 2;
-            max-width: 100%;
+            max-width: 90%;
             height: auto;
-            max-height: calc(100vh + 200px);
+            max-height: calc(100vh + 200px); /* 修正为+200px */
         }
 
-        /* 加载完成状态 */
         .loaded .main-image {
             opacity: 1;
         }
@@ -118,7 +118,7 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* 图片下方注释 */
@@ -247,11 +247,8 @@
             .image-wrapper {
                 max-width: 90%;
                 margin: 130px auto 20px;
-            }
-
-            /* 图片 */
-            .main-image {
-                max-height: calc(100vh - 200px);
+                text-align: center; /*没用*/
+                display: block; /*有用*/
             }
 
             /* 说明文字文本框 */
@@ -260,6 +257,7 @@
                 margin: 50px auto 100px auto; /* 上边距50px，下边距100px（留白），横向居中*/
             }
         }
+        /* 11111end */
     </style>
 </head>
 <body>
