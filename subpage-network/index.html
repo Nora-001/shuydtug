@@ -31,6 +31,7 @@
             font-weight: bold;
             color: white;
             margin-left: 35px;
+    
         }
 
         @media (min-width: 570px) {
@@ -48,7 +49,7 @@
             background: #003d74;
             color: white;
             font-size: 26px;/*原为25px */
-            padding: 6px 10px 6px;/* 调整文字到垂直居中用 */
+            padding: 6px 10px 6px;/* 调整文字到垂直居中用，不知道为什么align-items没用。原为5px 10px 7px */
             border: none;
             cursor: pointer;
             z-index: 1000;
@@ -72,24 +73,16 @@
             align-items: center; /* 文字垂直居中 */
         }
 
-        /* 图片 */
+        /* 图片一 */
         .main-image {
             display: block;
-            margin: 130px auto 20px;
+            margin: 130px auto 20px; /* 上边距130px，居中 */
             max-width: 90%;
             height: auto;
-            max-height: calc(100dvh + 200px); /* 使用动态视口单位 */
-            object-fit: contain; /* 新增 */
-            position: relative;
-            z-index: 500; /* 确保在导航栏和页脚之间？真的吗 */
-            -webkit-transform: translateZ(0); /* 强制GPU加速 */
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            image-rendering: -webkit-optimize-contrast;
+            max-height: calc(100vh + 200px); /* 确保图片高度自适应 */
         }
 
-
-        /* 图片下方注释 */
+        /* 图片一下方注释 */
         .image-caption {
             text-align: center;
             font-family: 黑体;
@@ -104,7 +97,7 @@
         .info-card {
             width: 60%; /* 宽度为页面的60% */
             margin: 50px auto 150px auto; /* 上边距50px，下边距150px（留白） */
-            background: rgba(245, 245, 245, 0.85); /* 背景透明度与大矩形卡片一致 */
+            background: rgba(245, 245, 245);
             padding: 20px;
             box-sizing: border-box;
             text-align: left;
@@ -133,7 +126,7 @@
         }
 
         .footer-content {
-            max-width: 1200px; /* 限制内容宽度 */
+            max-width: 1200px; /* 限制内容宽度。为什么报错？ */
             margin: 0 auto; /* 居中显示 */
         }
 
@@ -154,8 +147,9 @@
             color:#b1cfec; /* 悬停时文字颜色变为浅蓝色 */
         }
 
+
         /* 手机端样式 */
-        @media (max-width: 570px) {
+        @media (max-width: 570px) {/* 原为768px */
             /* 隐藏电脑端导航栏 */
             .navbar {
                 display: none;
@@ -173,7 +167,7 @@
                 padding-left: 35px;
                 display: flex;
                 align-items: center;
-                height:55px!important;
+                height:55px!important; /* 强制覆盖可能存在的冲突样式 *//* padding是10px,照理应该height是55px才居中啊…… */
             }
 
             .mobile-title span {
@@ -181,14 +175,16 @@
                 font-size: 35px;
                 color: #003d74;
                 font-weight: bold;
-                line-height: 1 !important;
-                display: inline-block;
+                z-index: 1001; /* 没用 */
+                align-items: center;
+                line-height: 1 !important; /* 清除继承的行高 */
+                display: inline-block; /* 使vertical-align生效 */
                 vertical-align: middle;
             }
 
             /* 返回键 */
             .back-button {
-                top: 60px; /* 距离大矩形卡片下边缘10px */
+                top: 60px; /* 距离大矩形卡片下边缘10px（可能已经不是了）,原为20px */
                 left: 20px;
                 text-align: center;
                 font-size: 20px;
@@ -198,28 +194,28 @@
             
             /* 页标题 */
             .page-title {
-                top: 0px; 
-                left: 0;
+                top: 0px; /* 原为65.5px，意为距离大矩形卡片下边缘15.5px */
+                left: 0; /* 距离返回键右侧边缘105px */
                 width: 100%;
                 background:rgba(245, 245, 245, 0.85);
-                height:auto;
+                height:auto; /* 原为34px,减少6px高度 */
                 display: flex;
-                padding-left: 155px;
+                padding-left: 155px; /* 距离返回键右侧边缘105px */
                 padding-top: 61px;
-                z-index: 999;
+                z-index: 999;/* 保证在返回键之下 */
             }
+            
 
-            /* 图片 */
+            /* 图片一 */
             .main-image {
-                max-width: 90%;
-                margin-top: calc(55px + 61px + 20px);
-                max-height: calc(100dvh - 240px); /* 使用动态视口单位 */
+                max-width: 90%; /* 图片宽度占屏幕小于等于90% */
+                max-height: calc(100vh - 200px); /* 确保图片高度自适应 */
             }
 
             /* 说明文字文本框 */
             .info-card {
-                width: 90%;
-                margin: 50px auto 100px auto;
+                width: 90%; /* 手机端宽度更大 */
+                margin: 50px auto 100px auto; /* 上边距50px，下边距100px（留白），横向居中*/
             }
         }
     </style>
@@ -241,10 +237,10 @@
         <span>SHU一站通（本科）</span>
     </div>
 
-    <!-- 图片 -->
-    <img src="https://i.ibb.co/Dgt8vgYj/image.webp" alt="校园网使用说明" class="main-image" decoding="async" loading="eager"/>
+    <!-- 图片一 -->
+    <img src="https://i.ibb.co/Dgt8vgYj/image.png" alt="校园网使用说明" class="main-image"/></a>
 
-    <!-- 图片下方注释 -->
+    <!-- 图片一下方注释 -->
     <div class="image-caption">▲校园网使用说明</div>
 
     <!-- 说明文字文本框 -->
@@ -259,8 +255,8 @@
                 <a href="https://nora-001.github.io/shuydtug/subpage-footer-aboutus/" class="footer-link">关于我们</a> &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a href="https://nora-001.github.io/shuydtug/subpage-footer-copyright/" class="footer-link">版权声明</a> &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a href="https://nora001.pythonanywhere.com/" class="footer-link">意见反馈</a>
-           </p>
-            <p>本站由"SHU一站通开发团队"开发，版权所有 © 上海大学及相关内容提供者</p>
+            </p>
+            <p>本站由“SHU一站通开发团队”开发，版权所有 © 上海大学及相关内容提供者</p>
             <p>沪ICP备12345678</p>
         </div>
     </footer>
